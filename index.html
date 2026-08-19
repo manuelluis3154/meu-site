@@ -6,11 +6,26 @@
   <style>
     body { font-family: Arial; background: #1a1a2e; color: white; text-align: center; padding: 50px; }
     h1 { color: #4ecca3; }
+    button { background: #4ecca3; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; margin-top: 20px; cursor: pointer; }
   </style>
 </head>
 <body>
   <h1>Bem-vindo ao meu site!</h1>
   <p>Feito no Termux, direto do telemóvel.</p>
+
+  <h2>Sobre mim</h2>
+  <p>Escreve aqui um pouco sobre ti.</p>
+
+  <button onclick="mudarCor()">Muda a cor de fundo</button>
+
+  <script>
+    function mudarCor() {
+      const cores = ["#1a1a2e", "#4ecca3", "#e94560", "#0f3460"];
+      const atual = document.body.style.background;
+      const indiceAtual = cores.indexOf(atual);
+      const proximo = cores[(indiceAtual + 1) % cores.length];
+      document.body.style.background = proximo;
+    }
+  </script>
 </body>
 </html>
-
