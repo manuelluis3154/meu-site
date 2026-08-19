@@ -1,30 +1,228 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>O Meu Primeiro Site</title>
-  <style>
-    body { font-family: Arial; background: #1a1a2e; color: white; text-align: center; padding: 50px; }
-    h1 { color: #4ecca3; }
-    button { background: #4ecca3; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; margin-top: 20px; cursor: pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Meu Site</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family:'Poppins', sans-serif;
+    color: white;
+    text-align:center;
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
+    background-size: 400% 400%;
+    animation: gradiente 15s ease infinite;
+    overflow-x: hidden;
+  }
+
+  @keyframes gradiente {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  nav {
+    position: sticky; top:0;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 16px;
+    display:flex; justify-content:center; gap:35px;
+    z-index: 100;
+  }
+
+  nav a {
+    color:#e0e0e0; text-decoration:none; font-weight:500; font-size:14px;
+    letter-spacing:1px; text-transform:uppercase;
+    transition: color 0.3s;
+  }
+  nav a:hover { color:#4ecca3; }
+
+  .hero { padding: 90px 20px 40px; }
+
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight:800;
+    background: linear-gradient(90deg, #4ecca3, #e94560, #f9d976);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brilho 4s linear infinite;
+  }
+
+  @keyframes brilho {
+    to { background-position: 200% center; }
+  }
+
+  .hero p {
+    margin-top: 14px;
+    font-weight:300;
+    opacity: 0.75;
+    font-size: 1.05rem;
+  }
+
+  .parabens {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.2rem, 9vw, 4rem);
+    font-weight: 700;
+    color: #f9d976;
+    margin: 35px 0 10px;
+    opacity: 0;
+    animation: aparecer 1.5s ease forwards 0.5s, brilhar 3s ease-in-out infinite 2s;
+    text-shadow: 0 0 25px rgba(249, 217, 118, 0.6);
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes brilhar {
+    0%, 100% { text-shadow: 0 0 25px rgba(249, 217, 118, 0.6); }
+    50% { text-shadow: 0 0 45px rgba(249, 217, 118, 0.95), 0 0 20px rgba(233,69,96,0.5); }
+  }
+
+  .subparabens {
+    font-weight: 300;
+    opacity: 0.8;
+    font-size: 1rem;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    font-weight:700;
+    margin: 70px 0 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  h2.visivel { opacity:1; transform: translateY(0); }
+
+  .carrossel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+
+  .carrossel {
+    display: flex;
+    width: max-content;
+    animation: deslizar 20s linear infinite;
+  }
+
+  .carrossel img {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin: 0 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .carrossel img:hover {
+    transform: scale(1.08) translateY(-8px);
+    box-shadow: 0 20px 40px rgba(78,204,163,0.4);
+  }
+
+  @keyframes deslizar {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .card-vidro {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 35px 25px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .card-vidro.visivel { opacity:1; transform: translateY(0); }
+
+  .card-vidro p { font-weight:300; opacity:0.85; line-height:1.6; }
+
+  button {
+    background: linear-gradient(90deg, #4ecca3, #45b393);
+    color: #0f0c29;
+    border:none;
+    padding: 14px 34px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight:700;
+    margin-top: 30px;
+    cursor:pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(78,204,163,0.45);
+  }
+  button:active { transform: translateY(-1px); }
+
+  footer {
+    margin-top: 90px;
+    padding: 30px;
+    font-size: 13px;
+    opacity: 0.5;
+    font-weight: 300;
+  }
+</style>
 </head>
 <body>
-  <h1>Bem-vindo ao meu site!</h1>
+
+<nav>
+  <a href="#inicio">Início</a>
+  <a href="#galeria">Galeria</a>
+  <a href="#sobre">Sobre</a>
+</nav>
+
+<div class="hero" id="inicio">
+  <h1>Bem-vindo ao meu site</h1>
   <p>Feito no Termux, direto do telemóvel.</p>
+  <div class="parabens">Parabéns, Arinela! 🎉</div>
+  <p class="subparabens">Que este novo ciclo seja repleto de alegria, conquistas e momentos inesquecíveis.</p>
+</div>
 
-  <h2>Sobre mim</h2>
-  <p>Escreve aqui um pouco sobre ti.</p>
+<h2 id="galeria">Galeria</h2>
+<div class="carrossel-wrapper">
+  <div class="carrossel">
+    <img src="foto1.jpg"><img src="foto2.jpg"><img src="foto3.jpg"><img src="foto4.jpg">
+    <img src="foto1.jpg"><img src="foto2.jpg"><img src="foto3.jpg"><img src="foto4.jpg">
+  </div>
+</div>
 
-  <button onclick="mudarCor()">Muda a cor de fundo</button>
+<h2 id="sobre">Sobre mim</h2>
+<div class="card-vidro">
+  <p>Escreve aqui um pouco sobre ti. Este é um cartão com efeito de vidro fosco (glassmorphism), uma das tendências mais usadas em sites modernos e premium.</p>
+  <button onclick="mudarCor()">Efeito extra</button>
+</div>
 
-  <script>
-    let indice = 0;
-    const cores = ["#1a1a2e", "#4ecca3", "#e94560", "#0f3460"];
-    function mudarCor() {
-      indice = (indice + 1) % cores.length;
-      document.body.style.background = cores[indice];
-    }
-  </script>
+<footer>© 2026 — Criado no Termux</footer>
+
+<script>
+  function mudarCor() {
+    document.body.style.filter = document.body.style.filter === "hue-rotate(60deg)" ? "none" : "hue-rotate(60deg)";
+  }
+
+  const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach(e => { if (e.isIntersecting) e.target.classList.add('visivel'); });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('h2, .card-vidro').forEach(el => observador.observe(el));
+</script>
+
 </body>
 </html>
