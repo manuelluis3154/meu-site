@@ -19,12 +19,11 @@
   <button onclick="mudarCor()">Muda a cor de fundo</button>
 
   <script>
+    let indice = 0;
+    const cores = ["#1a1a2e", "#4ecca3", "#e94560", "#0f3460"];
     function mudarCor() {
-      const cores = ["#1a1a2e", "#4ecca3", "#e94560", "#0f3460"];
-      const atual = document.body.style.background;
-      const indiceAtual = cores.indexOf(atual);
-      const proximo = cores[(indiceAtual + 1) % cores.length];
-      document.body.style.background = proximo;
+      indice = (indice + 1) % cores.length;
+      document.body.style.background = cores[indice];
     }
   </script>
 </body>
